@@ -46,7 +46,7 @@ CLI version
 
 
 
-!\[ClI version](ScreenShots/OverallViewOfTheCLI.png)
+![ClI version](ScreenShots/OverallViewOfTheCLI.png)
 
 
 
@@ -66,7 +66,7 @@ WebVersion
 
 
 
-!\[Web version](ScreenShots/OverallViewOfTheServer.png)
+![Web version](ScreenShots/OverallViewOfTheServer.png)
 
 
 
