@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSV Contact Manager (Web Mode)</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* --- Edit button style --- */
+    .btn-edit {
+      background: #ffaa00;
+      color: #000;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .btn-edit:hover {
+      filter: brightness(0.9);
+    }
+
+    /* Contact card layout */
+    .contact-card {
+      background: #333;
+      border-radius: 8px;
+      padding: 12px;
+      margin: 12px auto;
+      max-width: 420px;
+      text-align: left;
+    }
+    .contact-card h4 {
+      margin: 0 0 5px;
+      color: #fff;
+    }
+    .contact-card p {
+      margin: 2px 0;
+      color: #ccc;
+    }
+    .contact-card .btn-group {
+      margin-top: 10px;
+      display: flex;
+      gap: 8px;
+    }
+  </style>
+</head>
+
+
+<body>
+
+<h1>CSV Contact Manager (Web Mode)</h1>
+
+<div class="container">
+  <!-- ===== Ping and Add Section ===== -->
+
+  <div id="add-section" style="display:none;">
+    <form id="add-form">
+      <input type="text" name="name" placeholder="Name" required>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="phone" placeholder="Phone" required>
+      <input type="text" name="country" placeholder="Country" required>
+      <input type="text" name="city" placeholder="City" required>
+      <button type="submit">Add Contact</button>
+    </form>
+  </div>
+
+  <hr>
+
+  <!-- ===== Main Buttons ===== -->
+  <button id="show-add">Add Contact</button>
+  <button id="list-btn">Show Contacts</button>
+  <button id="hide-btn" style="display:none;">Hide Contacts</button>
+  <button id="freeall-btn" class="danger">Free All Contacts</button>
+  <button id="sort-btn">Sort Contacts</button>
+
+  <div id="contact-list"></div>
+  <hr>
+
+  <form id="upload-form" method="POST" action="/upload" enctype="multipart/form-data" style="margin-top:20px;">
+    <input type="file" name="file" accept=".csv,.txt" required>
+    <button type="submit">Upload File</button>
+  </form>
+
+  <form method="GET" action="/download-txt" style="display:inline;">
+    <button type="submit" class="download-btn">Download TXT</button>
+  </form>
+  <form method="GET" action="/download-csv" style="display:inline;">
+    <button type="submit" class="download-btn">Download CSV</button>
+  </form>
+
+  <!-- ===== Search Section ===== -->
+  <div id="search-section">
+    <h3>Search Contact</h3>
+    <div class="search-wrapper">
+      <form id="search-form">
+        <select name="mode" id="search-mode">
+          <option value="name">By Name</option>
+          <option value="email">By Email</option>
+          <option value="phone">By Phone</option>
+        </select>
+        <input type="text" name="value" id="search-input" placeholder="Enter value..." required>
+        <button type="submit" id="search-btn">Search</button>
+      </form>
+    </div>
+    <div id="search-result"></div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+
+
+
+

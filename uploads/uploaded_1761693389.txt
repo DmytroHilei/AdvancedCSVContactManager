@@ -1,0 +1,7 @@
+------geckoformboundaryd877278c5ec5dd0ff15b4964764fc38d
+Content-Disposition: form-data; name="file"; filename="ContactsTXT.txt"
+Content-Type: text/plain
+
+Dmytro gileydima@gmail.com Ukraine +380672724995 Lviv 
+Dimitrij gileydima@.com Estonia +372672724995 Tallinn
+------geckoformboundaryd877278c5ec5dd0ff15b4964764fc38d--

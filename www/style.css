@@ -1,0 +1,231 @@
+/* === GLOBAL === */
+body {
+  font-family: system-ui, sans-serif;
+  background-color: #2e2e2e;
+  color: #eee;
+  text-align: center;
+  margin: 0;
+}
+
+/* Header (main UI pages only) */
+body:not(.upload-result) h1 {
+  background-color: #000;
+  color: #fff;
+  padding: 20px;
+  margin: 0;
+  font-size: 2em;
+}
+
+/* Remove lines */
+hr { display: none; }
+
+/* Links */
+a {
+  text-decoration: none;
+  color: #0078d7;
+}
+a:hover { color: #3399ff; }
+
+/* === CONTAINER === */
+.container {
+  display: inline-block;
+  background-color: #3a3a3a;
+  padding: 20px 30px;
+  border-radius: 10px;
+  margin-top: 30px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.4);
+  text-align: center;
+}
+
+/* Inputs & selects */
+input, select {
+  display: block;
+  margin: 8px auto;
+  padding: 10px;
+  width: 80%;
+  max-width: 260px;
+  border: none;
+  border-radius: 6px;
+  background-color: #555;
+  color: #fff;
+}
+input:focus { background-color: #666; }
+select {
+  background-color: #444;
+  color: #fff;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Labels */
+label {
+  color: #ddd;
+  font-weight: 500;
+}
+
+/* Buttons */
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #0078d7;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+button:hover { background-color: #005ea6; }
+
+/* Danger buttons */
+button.exit,
+button.danger,
+#freeall-btn {
+  background-color: #d9534f;
+}
+button.exit:hover,
+button.danger:hover,
+#freeall-btn:hover {
+  background-color: #c9302c;
+}
+
+/* Download buttons */
+.download-btn {
+  font-size: 0.85em;
+  padding: 8px 16px;
+  border-radius: 6px;
+  background-color: #007bff;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+.download-btn:hover { background-color: #005fcc; }
+
+/* Contact list */
+#contact-list {
+  margin-top: 20px;
+  text-align: left;
+  background: #3a3a3a;
+  padding: 15px;
+  border-radius: 10px;
+  max-width: 450px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#contact-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+#contact-list li {
+  background: #444;
+  padding: 8px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+}
+
+/* Contact card */
+.contact-card {
+  background: #3a3a3a;
+  border-radius: 8px;
+  padding: 12px;
+  margin: 12px auto;
+  max-width: 420px;
+  text-align: left;
+}
+.contact-card h4 {
+  margin: 0 0 5px;
+  color: #fff;
+}
+.contact-card p {
+  margin: 2px 0;
+  color: #ddd;
+}
+.contact-card .btn-group {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Add contact */
+#add-section { margin-top: 10px; transition: all 0.3s ease; }
+#add-section form {
+  margin-top: 15px;
+  background: #3a3a3a;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+/* Search */
+#search-section { margin-top: 20px; }
+#search-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+#search-form select,
+#search-form input,
+#search-form button {
+  margin: 8px 0;
+  width: 60%;
+  max-width: 400px;
+}
+
+/* Error notes */
+.error-note {
+  color: #ff8080;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+/* === UPLOAD RESULT (success/error windows) ===*/
+.upload-result {
+  background-color: #2e2e2e;
+  color: #eee;
+  font-family: system-ui, sans-serif;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Card */
+.upload-result .card {
+  background: #3a3a3a;
+  padding: 2em 3em;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+/* Success window H1 */
+body.upload-result h1 {
+  background: none !important;
+  color: #00ff55 !important;
+  margin-bottom: 0.5em;
+  font-size: 2.2em;
+}
+
+/* Success page text */
+.upload-result p {
+  margin: 0.5em 0;
+  color: #eee;
+}
+
+/* Back link */
+.upload-result .back-link {
+  color: #3399ff;
+  text-decoration: none;
+  font-weight: 600;
+}
+.upload-result .back-link:hover {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+

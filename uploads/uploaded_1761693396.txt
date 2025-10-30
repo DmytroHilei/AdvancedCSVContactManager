@@ -1,0 +1,9 @@
+------geckoformboundary814680ca599a403ccd7020e24856f90b
+Content-Disposition: form-data; name="file"; filename="Contacts.csv"
+Content-Type: application/vnd.ms-excel
+
+﻿name,mail,country,phone,city
+Dmytro,gileydima@gmail.com,Ukraine,+380672724995,Lviv
+Pavlo,pavlohilei@gmail.com,Poland,+4816789565,Warsaw
+
+------geckoformboundary814680ca599a403ccd7020e24856f90b--
