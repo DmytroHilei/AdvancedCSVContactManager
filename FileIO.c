@@ -32,7 +32,7 @@ int ReadFromTheCSV(const char *fileName, Contact **contacts, int *size) {
         //------------email-----------------------
         token = strtok(NULL, ",");
 
-        if (!token || !IsValidEmail(token)) {
+        if (!token || !IsValidEmail(token) || IsDuplicateEmail(*contacts, size, token)) {
             free(temp.name);
             continue;
         }
@@ -51,7 +51,7 @@ int ReadFromTheCSV(const char *fileName, Contact **contacts, int *size) {
         //------------phone----------------
 
         token = strtok(NULL, ",");
-        if (!token || !IsValidPhoneNumber(token, temp.country)) {
+        if (!token || !IsValidPhoneNumber(token, temp.country) || IsDuplicatePhoneNumber(*contacts, size, token)) {
             free(temp.name);
             free(temp.email);
             free(temp.country);
@@ -100,7 +100,7 @@ int ReadFromTXT(const char *fileName, Contact **contacts, int *size) {
         }
         temp.name = strdup(name);
 
-        if (!IsValidEmail(email)) {
+        if (!IsValidEmail(email) || IsDuplicateEmail(*contacts, size, temp.name)) {
             free(temp.name);
             continue;
         }
@@ -113,7 +113,7 @@ int ReadFromTXT(const char *fileName, Contact **contacts, int *size) {
         }
         temp.country = strdup(country);
 
-        if (!IsValidPhoneNumber(phone, country)) {
+        if (!IsValidPhoneNumber(phone, country) || IsDuplicatePhoneNumber(*contacts, size, temp.country)) {
             free(temp.name);
             free(temp.email);
             free(temp.country);

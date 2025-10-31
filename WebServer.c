@@ -105,16 +105,16 @@ static int HandleAddContact(struct mg_connection *conn, void *cbdata) {
             "HTTP/1.1 400 Bad Request\r\n"
             "Content-Type: text/html; charset=utf-8\r\n"
             "\r\n"
-            "Invalid name: must contain only letters, spaces or dashes.");
+            "Invalid name or there is duplicate");
         return 400;
     }
 
-    if (!IsValidEmail(email)) {
+    if (!IsValidEmail(email) || IsDuplicateEmail(contacts, &contactCount, email)) {
         mg_printf(conn,
             "HTTP/1.1 400 Bad Request\r\n"
             "Content-Type: text/html; charset=utf-8\r\n"
             "\r\n"
-            "Invalid email address format");
+            "Invalid email address format or there is duplicate");
         return 400;
     }
 
@@ -123,16 +123,16 @@ static int HandleAddContact(struct mg_connection *conn, void *cbdata) {
             "HTTP/1.1 400 Bad Request\r\n"
             "Content-Type: text/html; charset=utf-8\r\n"
             "\r\n"
-            "Invalid country name.");
+            "Invalid country name or there is duplicate");
         return 400;
     }
 
-    if (!IsValidPhoneNumber(phone, country)) {
+    if (!IsValidPhoneNumber(phone, country) || IsDuplicatePhoneNumber(contacts, &contactCount, phone)) {
         mg_printf(conn,
             "HTTP/1.1 400 Bad Request\r\n"
             "Content-Type: text/html; charset=utf-8\r\n"
             "\r\n"
-            "Invalid phone number for your country.");
+            "Invalid phone number for your country or there is duplicate");
         return 400;
     }
     if (!IsValidString(city)) {
@@ -140,7 +140,7 @@ static int HandleAddContact(struct mg_connection *conn, void *cbdata) {
             "HTTP/1.1 400 Bad Request\r\n"
             "Content-Type: text/html; charset=utf-8\r\n"
             "\r\n"
-            "Invalid city name.");
+            "Invalid city name or there is duplicate");
         return 400;
     }
     AddContact(contacts, &contactCount, name, email, phone, country, city);
@@ -483,63 +483,76 @@ static int HandleApplyEdit(struct mg_connection *conn, void *cbdata) {
 
     // free and replace based on field
 
-
-
-
     if (strcmp(field, "name") == 0) {
-        char *new_name = strdup(value);
-        if (!new_name) {
-            mg_printf(conn,
-                "HTTP/1.1 500 Internal Server Error\r\n"
-                "Content-Type: text/plain\r\n\r\n"
-                "Memory allocation failed");
-            return 500;
+            char *new_name = strdup(value);
+            if (!new_name) {
+                mg_printf(conn,
+                    "HTTP/1.1 500 Internal Server Error\r\n"
+                    "Content-Type: text/plain\r\n\r\n"
+                    "Memory allocation failed");
+                return 500;
+            }
+            free(contacts[index].name);
+            contacts[index].name = new_name;
+        } else if (strcmp(field, "email") == 0) {
+            char *newEmail = strdup(value);
+            if (!newEmail) {
+                mg_printf(conn,
+                    "HTTP/1.1 500 Internal Server Error\r\n"
+                    "Content-Type: text/plain\r\n\r\n"
+                    "Memory allocation failed");
+                return 500;
+            }
+            if (IsDuplicateEmail(contacts, &contactCount, newEmail)) {
+                mg_printf(conn,
+                    "HTTP/1.1 400 Bad Request\r\n"
+                    "Content-Type: text/html; charset=utf-8\r\n"
+                    "\r\n"
+                    "Invalid name or there is duplicate");
+                return 400;
+            }
+            free(contacts[index].email);
+            contacts[index].email = newEmail;
+        } else if (strcmp(field, "phone") == 0) {
+            char *newPhone = strdup(value);
+            if (!newPhone) {
+                mg_printf(conn,
+                    "HTTP/1.1 500 Internal Server Error\r\n"
+                    "Content-Type: text/plain\r\n\r\n"
+                    "Memory allocation failed");
+                return 500;
+            }
+            if (IsDuplicatePhoneNumber(contacts, &contactCount, newPhone)) {
+                mg_printf(conn,
+                    "HTTP/1.1 400 Bad Request\r\n"
+                    "Content-Type: text/html; charset=utf-8\r\n"
+                    "\r\n"
+                    "Invalid name or there is duplicate");
+                return 400;
+            }
+            free(contacts[index].phone);
+            contacts[index].phone = newPhone;
+        } else if (strcmp(field, "country") == 0) {
+            char *newCountry = strdup(value);
+            if (!newCountry) {
+                mg_printf(conn,
+                    "HTTP/1.1 500 Internal Server Error\r\n"
+                    "Content-Type: text/plain\r\n\r\n"
+                    "Memory allocation failed");
+            }
+            free(contacts[index].country);
+            contacts[index].country = newCountry;
+        } else if (strcmp(field, "city") == 0) {
+            char *newCity = strdup(value);
+            if (!newCity) {
+                mg_printf(conn,
+                    "HTTP/1.1 500 Internal Server Error\r\n"
+                    "Content-Type: text/plain\r\n\r\n"
+                    "Memory allocation failed");
+            }
+            free(contacts[index].city);
+            contacts[index].city = newCity;
         }
-        free(contacts[index].name);
-        contacts[index].name = new_name;
-    } else if (strcmp(field, "email") == 0) {
-        char *newEmail = strdup(value);
-        if (!newEmail) {
-            mg_printf(conn,
-                "HTTP/1.1 500 Internal Server Error\r\n"
-                "Content-Type: text/plain\r\n\r\n"
-                "Memory allocation failed");
-            return 500;
-        }
-        free(contacts[index].email);
-        contacts[index].email = newEmail;
-    } else if (strcmp(field, "phone") == 0) {
-        char *newPhone = strdup(value);
-        if (!newPhone) {
-            mg_printf(conn,
-                "HTTP/1.1 500 Internal Server Error\r\n"
-                "Content-Type: text/plain\r\n\r\n"
-                "Memory allocation failed");
-            return 500;
-        }
-        free(contacts[index].phone);
-        contacts[index].phone = newPhone;
-    } else if (strcmp(field, "country") == 0) {
-        char *newCountry = strdup(value);
-        if (!newCountry) {
-            mg_printf(conn,
-                "HTTP/1.1 500 Internal Server Error\r\n"
-                "Content-Type: text/plain\r\n\r\n"
-                "Memory allocation failed");
-        }
-        free(contacts[index].country);
-        contacts[index].country = newCountry;
-    } else if (strcmp(field, "city") == 0) {
-        char *newCity = strdup(value);
-        if (!newCity) {
-            mg_printf(conn,
-                "HTTP/1.1 500 Internal Server Error\r\n"
-                "Content-Type: text/plain\r\n\r\n"
-                "Memory allocation failed");
-        }
-        free(contacts[index].city);
-        contacts[index].city = newCity;
-    }
 
     mg_printf(conn,
         "<p>Contact updated successfully.</p>"

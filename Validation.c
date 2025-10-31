@@ -6,6 +6,8 @@
 #include "StringHandaling.h"
 #include "Validation.h"
 
+#include "ContactManager.h"
+
 
 int IsValidEmail(const char *email) {
     if (Len(email) == 0) return 0;
@@ -78,4 +80,22 @@ char* GetValidInput(const char *prompt, int (*validator)(const char *)) {
         }
     } while (!validator(s));
     return s;
+}
+
+
+int IsDuplicateEmail(Contact *contacts, int *size, const char *email) {
+    for (int i = 1; i < *size; i++) {
+        if (strcmp(contacts[i].email, email) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+int IsDuplicatePhoneNumber(Contact *contacts, int *size, const char *phone) {
+    for (int i = 1; i < *size; i++) {
+        if (strcmp(contacts[i].phone, phone) == 0) {
+            return 1;
+        }
+    }
+    return 0;
 }
