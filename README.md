@@ -222,8 +222,10 @@ Manages file uploads from the frontend (CSV or TXT files).
 
 Saves them temporarily on the server, parses their contents, and adds valid contacts to memory.
 
+HandleDownloadFiles() 
 
-
+Saves the contacts list in 
+ txt or CSV format to the computer
 
 
 
